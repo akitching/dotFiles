@@ -1,5 +1,7 @@
 # Dot Files
 
+Storage based on https://www.atlassian.com/git/tutorials/dotfiles
+
 ## Setup dot files for new system
 
 ```bash
