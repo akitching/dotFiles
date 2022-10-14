@@ -1,0 +1,371 @@
+*cakephp.txt* *cakephp*
+
+cakephp.vim - a plugin for navigating and managing CakePHP applications with Vim
+
+Author: Nick Reynolds   |   ndreynolds [AT] gmail [DOT] com
+License: Public Domain
+
+This documentation covers version 1.4. 
+
+INTRODUCTION                                              *cakephp-introduction*
+================================================================================
+
+This plugin aims to bring many of the features from rails.vim to CakePHP users. 
+Since I use Rails and rails.vim myself (when I'm not using Cake), I've tried to 
+make the commands similar, so it's not confusing to switch between the two. At 
+the same time, CakePHP is not an exact copy of Rails, and PHP is not Ruby, so 
+some things need to be different.
+
+Because the CakePHP environment is so well organized, we can make a lot of 
+inferences about the whole application from a single file. If you call one of 
+its functions from a model, cakephp.vim already knows where the controller and 
+views are. The goal is to help you quickly bounce back and forth between the MVC
+structure without needing a file browser or explicit paths. While quick 
+navigation is the priority, I'm also trying to include other little utilities 
+that just make using Cake easier.
+
+INSTALLATION                                              *cakephp-installation*
+================================================================================
+
+With Pathogen, it's as easy as cloning the repository into your `bundle` 
+directory.
+
+    $ git clone https://github.com/ndreynolds/vim-cakephp.git 
+
+If you don't use Pathogen, you can put plugin/cakephp.vim in 
+$VIMRUNTIME/plugin/, or follow your favorite plugin manager's instructions.
+
+
+WHAT IT DOES                                              *cakephp-what-it-does*
+================================================================================
+
+cakephp.vim checks each buffer you load (that matches a set of extensions) to 
+see if it looks like a CakePHP application file. The check is very quick and 
+won't have any noticeable effect on performance.  To distinguish a CakePHP 
+application from, say, a Ruby on Rails app (which has a similar structure), the 
+plugin checks the config directory for 'bootstrap.php', 'routes.php', and 
+'core.php'. If your Cake app isn't being recognized, make sure these are 
+present. This check is needed to make sure cakephp.vim stays out of the way of 
+other plugins. 
+
+When it thinks you're editing a CakePHP application file, an indicator is added 
+to your status line. The plugin's commands are available when this indicator is 
+present.
+
+    Note: Currently, cakephp.vim just hijacks your statusline. This is fine 
+          unless you have a custom statusline. I'm working on appending the 
+          indicator instead reseting the whole thing (which is easier said than 
+          done).
+
+Along with the indicator, it builds a dictionary of paths to various Cake 
+application elements. You can see the paths built for any given file by calling 
+|:Cassoc|. In addition to basic paths like the webroot and config directories, 
+the plugin can calculate the paths to related MVC elements.
+
+The plugin builds MVC associations on its own. It can pluralize and singularize 
+model and controller names, respectively. It's also reasonably good at 
+distinguishing between plural and singular forms. With these 'associations', as 
+I call them, the plugin can often make an educated guess when you run commands 
+without arguments. For instance, |:Cmodel| sans any arguments will open the 
+associated model when one exists.
+
+
+USE                                                                *cakephp-use*
+================================================================================
+
+cakephp.vim commands are available when the status line indicator, [CakePHP], is
+present. As a special case, the |:Cassoc| command will always be available, for 
+debugging purposes.
+
+The most basic commands are |:Cmodel|, |:Ccontroller|, and |:Cview|. These 
+commands are covered in detail below. You can use them to quickly jump between 
+the MVC structure. They all come with tab completion, which you can use to both 
+see what's available and to open a given file in fewer keystrokes.
+
+You don't need to use file extensions with any of the commands. CakePHP is a 
+very definitive framework. As such, we can make a lot of assumptions about file 
+types and the file hierarchy.
+
+To create new files with the navigation commands, simply give the filename as an
+argument. For example, running >
+
+    :Cview test  
+
+from 'posts_controller.php' would create the file 'test.ctp' within the 
+views/posts/ directory--so long as it's not already there.
+
+The |:Cgrep| command may be useful when you need to track down a given string or
+pattern (maybe a method call or variable name). The command greps the 
+application root recursively, omitting the tmp and config directories by default
+to clean up the results. You can include them by running the command with a 
+bang.
+
+If you end up using the plugin a lot, you might consider remapping some of the 
+longer commands. For instance, you could remap |:Ccontroller| to something like 
+<leader>cc in your .vimrc.
+
+
+COMMANDS                                                      *cakephp-commands*
+================================================================================
+
+
+NAVIGATION                                         *cakephp-navigation-commands*
+--------------------------------------------------------------------------------
+
+                                                  *cakephp-navigation-modifiers*
+Navigation commands can be modified with 'S', 'V', 'T', or 'R' to open the file
+in certain way. By default, the |:edit| command is used to open files.
+
+:CS[command]                Opens in a horizontal split
+:CV[command]                Opens in a vertical split
+:CT[command]                Opens in a new tab
+:CR[command]                Reads the file into the current buffer
+
+
+Most commands come with tab completion. After typing the command and a space, 
+hit tab for available options.
+
+The following listing of navigation commands is alphabetical.
+
+
+                                                             *cakephp:Cbehavior*
+:Cbehavior                  Open a file browser buffer in Model/Behavior.
+
+:Cbehavior [{name}]         Open the specified behavior from within
+                            Model/Behavior.
+
+
+                                                            *cakephp:Ccomponent*
+:Ccomponent                 Open a file browser buffer in Controller/Component
+
+:Ccomponent [{name}]        Open the specified component from within 
+                            Controller/Component.
+
+
+                                                               *cakephp:Cconfig*
+:Cconfig                    Open a file browser in Config/.
+
+:Cconfig [{name}]           Open the specified configuration file from within 
+                            Config/.
+
+
+                                                                  *cakephp:Ccss*
+                                                                *cakephp:Cstyle*
+                                                                 *cakephp:Cless*
+                                                                 *cakephp:Csass*
+:Ccss                       Opens a file browser buffer in webroot/css/.
+
+:Ccss [{name}]              Opens the specified stylesheet from within 
+                            webroot/css. Depending on the command, this may be a
+                            LESS or SASS stylesheet. You do not need to supply 
+                            the extension. >
+                                
+                                :Ccss style  " Opens webroot/css/style.css
+                                :Cless style " Opens webroot/css/style.less
+
+
+                                                           *cakephp:Ccontroller*
+:Ccontroller                Opens the associated controller as a buffer. 
+
+:Ccontroller [{name}]       Opens the specified controller. Same as the previous
+                            command, but opens the controller given as an 
+                            argument. The named controller need not be 
+                            associated with the current buffer. You can supply 
+                            either the singular or plural form of the MVC 
+                            element. >
+
+                                :Ccontroller users
+                                :Ccontroller user
+
+
+                                                              *cakephp:Celement*
+                                                                 *cakephp:Cpage*
+                                                             *cakephp:Cscaffold*
+                                                               *cakephp:Chelper*
+                                                                *cakephp:Cemail*
+                                                               *cakephp:Clayout*
+:C[command]                 The commands to open files from View default 
+                            sub-directories are functionally identical. Without
+                            an argument, the directory is opened in a file
+                            browser buffer.
+
+:C[command] [{name}]        With an argument, the specified file from within the
+                            View sub-directory is opened.
+
+
+                                                                   *cakephp:Cjs*
+:Cjs                        Opens the file browser buffer in webroot/js/.
+
+:Cjs [{name}]               Opens the specified script from within webroot/js/. 
+                            You do not need to supply the extension. >
+                                
+                                :Cjs jquery " Opens webroot/js/jquery.js
+
+
+                                                                  *cakephp:Clog*
+:Clog                       Open a file browser buffer in tmp/logs.
+
+:Clog [{name}]              Open the specified log from within tmp/logs.
+
+
+                                                                *cakephp:Cmodel*
+:Cmodel                     Opens the associated model. 
+
+:Cmodel [{name}]            Open the specified model. The same name conventions
+                            as |:Ccontroller| above apply. Although there's no 
+                            good reason to refer to the model in plural, the 
+                            command will accept either form. >
+
+                                :Cmodel user
+                                :Cmodel users
+
+
+                                                                 *cakephp:Cview*
+:Cview                      Opens a file browser buffer in the associated views 
+                            directory, or conditionally, opens the current 
+                            function's view. See below for more details.
+
+:Cview [{name}]             Opens the specified view. This command works a few 
+                            ways. If you only provide a view name like 'index' 
+                            or 'add', it will open the file in the associated 
+                            views directory. If you're editing a controller, it 
+                            will attempt to open the view that corresponds to 
+                            the function your cursor is inside of. If you were 
+                            trying to open the directory instead, you can force 
+                            the directory buffer with the '$' keyword. 
+                            Additionally, you can specify views that belong to 
+                            other controllers by providing their paths relative
+                            to the Controller directory. 
+                            
+                            Suppose we are editing 'posts_controller.php' and 
+                            our cursor is within the 'edit' function: >
+
+                                :Cview index      " Opens View/Posts/index.ctp
+                                :Cview            " Opens View/Posts/edit.ctp
+                                :Cview users/add  " Opens View/Users/add.ctp
+                                :Cview $          " Opens directory View/Users/
+
+<
+                            Note that calling :Cview without arguments will only
+                            open a view file if you're editing a controller 
+                            function AND the corresponding view file already 
+                            exists. The views directory buffer will be launched
+                            instead if either condition fails. Including the 
+                            '$' keyword will always override this logic and
+                            force the directory.
+
+
+
+UTILITY                                               *cakephp-utility-commands*
+--------------------------------------------------------------------------------
+
+                                                                 *cakephp:Cgrep*
+:Cgrep [{pattern}]          Recursively greps the application directory. Windows
+                            users will need to have grep installed to use this 
+                            command. Will force color and exclude the tmp and 
+                            config directories by default. There's a lot of 
+                            framework stuff in both directories that clutters 
+                            the results. You can run the command with a bang 
+                            (:Cgrep!) to show the unfiltered results.
+
+                                                                   *cakephp:Ccd*
+:Ccd                        Run Vim's |:cd| with the path to the app directory.
+
+                                                                  *cakephp:Clcd*
+:Clcd
+                            Run Vim's |:lcd| with the path to the app directory.
+                            This is local to the current window.
+
+
+DOCUMENTATION                                   *cakephp-documentation-commands*
+--------------------------------------------------------------------------------
+
+                                                                  *cakephp:Cdoc*
+:Cdoc [{query}]             Points the default browser to api.cakephp.org, 
+                            showing either the index page, or the results of the
+                            query argument, if supplied. This feature is still a
+                            bit experimental. It uses the shell's 'open' 
+                            command. Should work on Windows, Mac, and *nixes 
+                            with gnome-open installed. It's probably worth 
+                            reminding that this won't work when you're 
+                            developing on a remote server over SSH, as the 
+                            browser would (try to) open on that machine, NOT on 
+                            your client machine. >
+
+                                :Cdoc Email Component 
+
+                                                                 *cakephp:Cldoc*
+:Cldoc [{query}]            Same as |:Cdoc|, but will use the Lynx browser. It 
+                            doesn't check if you have Lynx (at least not yet), 
+                            so you'll get an error if you don't have it 
+                            installed. This command makes it possible to browse 
+                            the docs while working on a remote server.  When you
+                            close Lynx, you can press enter to resume your vim 
+                            session. >
+
+                                :Cldoc security 
+
+DEBUGGING
+--------------------------------------------------------------------------------
+
+                                                                 *cakephp:Casoc*
+:Cassoc                     Outputs the associations it was able to build. If 
+                            the plugin tries to open a path you don't expect, 
+                            you can see what it was thinking.
+
+CHANGE LOG
+================================================================================
+
+1.4     Adds |:Cscaffold|, |:Cpage|, |:Celement|, |:Ctest|, |:Ctask|, |:Cemail|
+        files commands.
+        Adds |:Ccd| and |:Clcd|
+        Adds |:Cless| and |:Csass|
+        Adds the additional T and R command modifiers to all file commands.
+        Refactors the codebase. Non-MVC file commands are now declared and
+        completed automatically using multi-purpose functions.
+        :CLdoc was renamed to |:Cldoc| to keep naming consistent.
+
+1.3     ?? (Need to look through the commits)
+
+1.2.5   Adds |:Chelper|, |:Ccomponent|, |:Cbehavior|.
+        Updated documentation.
+        Minor statusline changes.
+        Fewer bugs.
+
+1.2     Adds [CakePHP] indicator to statusline and conditionally sets commands.
+        Adds the |:Clayout|, |:Cgrep|, and |:Cldoc| commands.
+        Function associate() lazily retrieves associations:
+            -- Stores the dictionary in a script-scope variable, only calling 
+               build_associations() when necessary.
+        Expands app detection to the plugins, layouts, and config directories.
+        Fixes a few bugs here and there.
+
+1.1
+        Expands navigation commands: 
+            -- Split and vertical split variants. 
+            -- Adds js, css, config, and log commands.
+            -- |:Cview| now accepts 'controller/view' syntax and will open, by 
+               default, the matching view when the cursor is inside of a 
+               controller function.
+        Experimental :Cdoc command:
+            -- Calls the shell's open location command, which required OS 
+               detection, to open the CakePHP API in the default browser.
+        Better app detection:
+            -- Will find a CakePHP app when called from files other than the 
+               MVC.
+        Tab completion for most commands:
+            -- Custom command completion based on wildcard searches of the 
+               appropriate directory.
+        
+1.0     Initial release. Modest navigation functionality.        
+
+
+TODO
+================================================================================
+
+1. Improved statusline handling
+2. Sensible bake integration.
+3. :Cfind/:Cedit, similar to :Rfind of rails.vim
+4. (HTML, Form, etc) Helper snippets
+5. Allow file extensions.
+...

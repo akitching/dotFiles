@@ -1,0 +1,4 @@
+SetMacro( 'AUTHOR', 'Alex Kitching' )
+SetMacro( 'AUTHORREF', 'ak' )
+SetMacro( 'EMAIL', 'alex@kitching.info' )
+SetMacro( 'COPYRIGHT', 'Copyright (c) |YEAR|, |AUTHOR|' )

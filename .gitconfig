@@ -1,0 +1,26 @@
+[user]
+    name = Alex Kitching
+    email = alex.kitching@amalgamstudios.com
+    editor = /usr/bin/vim
+    signingkey = 413E4D58
+[alias]
+    co = checkout
+    ci = commit
+    br = branch
+    st = status
+    last = log -1 HEAD
+    l = log
+    lg = log --graph
+    l1 = log --oneline
+
+    d = diff
+    dc = diff --cached
+    wd = diff --word-diff
+    wdc = diff --word-diff --cached
+[color]
+    ui = true
+[push]
+    default = simple
+[commit]
+    gpgsign = true
+    
