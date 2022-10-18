@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install Starship
+curl -sS https://starship.rs/install.sh | sh
+
 # https://github.com/DoomHammer/dotfiles/blob/master/.config/yadm/bootstrap
 configure_vim() {
   # Install vim-plug for Vim
