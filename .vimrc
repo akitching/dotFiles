@@ -30,7 +30,7 @@ call plug#begin()
 " This is taking care of the plugins
 Plug 'junegunn/vim-plug'
 
-Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'preservim/nerdtree'
 
 " Automatically detect indentation
 Plug 'tpope/vim-sleuth'
@@ -38,7 +38,7 @@ Plug 'tpope/vim-sleuth'
 " Lean & mean status/tabline for vim that's light as air.
 Plug 'vim-airline/vim-airline'
 
-"Plug 'vim-scripts/YankRing.vim'
+Plug 'vim-scripts/YankRing.vim'
 
 Plug 'vim-scripts/Gundo'
 
