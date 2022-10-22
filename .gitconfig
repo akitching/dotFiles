@@ -2,8 +2,7 @@
     editor = /usr/bin/vim
 [user]
     name = Alex Kitching
-    email = alex.kitching@amalgamstudios.com
-    #signingkey = 413E4D58
+    email = akitching@users.noreply.github.com
     signingkey = 507A2D42E4BFA925
 [alias]
     co = checkout
