@@ -4,3 +4,6 @@
 curl -sS https://starship.rs/install.sh > starship-installer.sh
 sh starship-installer.sh -y
 rm starship-installer.sh
+
+git clone --depth 1 https://github.com/NvChad/NvChad.git ~/.config/nvim
+ln -s nvim-lua-custom ~/.config/nvim/lua/config
