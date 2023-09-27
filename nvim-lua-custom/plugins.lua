@@ -169,5 +169,38 @@ local plugins = {
       require("nvim-dap-virtual-text").setup()
     end
   },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        -- defaults
+        "vim",
+        "lua",
+
+        -- web dev
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        "xml",
+        "c_sharp",
+        "yaml",
+
+        -- IaC
+        "terraform",
+
+        "dockerfile",
+
+        -- git
+        "gitcommit",
+        "gitignore",
+        "gitattributes",
+        "git_rebase",
+        "git_config",
+      }
+    }
+  }
 }
 return plugins
