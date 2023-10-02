@@ -2,7 +2,10 @@ local lspconfig = require("lspconfig")
 
 local config = require("plugins.configs.lspconfig")
 
-local on_attach = config.on_attach
+local on_attach = function(client)
+  client.resolved_capabilities.document_formatting = true
+  client.resolved_capabilities.document_range_formatting = true
+end
 local capabilities = config.capabilities
 
 lspconfig.terraformls.setup {
