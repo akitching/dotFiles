@@ -6,4 +6,7 @@ sh starship-installer.sh -y
 rm starship-installer.sh
 
 git clone --depth 1 https://github.com/NvChad/NvChad.git ~/.config/nvim
-ln -s nvim-lua-custom ~/.config/nvim/lua/config
+# Remove default custom config
+rm -r ~/.config/nvim/lua/custom
+# Link managed custom config
+ln -s ~/nvim-lua-custom ~/.config/nvim/lua/config
