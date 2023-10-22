@@ -4,8 +4,8 @@
 
 #CDPATH=".:~/FrequentDirectories"
 
-export EDITOR=/usr/bin/vim
-export GIT_EDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/vi
+export GIT_EDITOR=/usr/bin/vi
 #export MPD_HOST="127.0.0.1"
 export MPD_HOST="scratch@scratch.kitching.info"
 export MPD_PORT="6600"
