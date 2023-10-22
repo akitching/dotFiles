@@ -1,3 +1,46 @@
+ -- Servers only need a minimal set of plugins
+local mason_plugins = {
+  "lua-language-server",
+}
+ -- Clients want the full IDE experience
+local mason_ide_plugins = {
+  "ansible-language-server",
+  "ansible-lint",
+  -- LSP
+  "csharp-language-server",
+  -- "omnisharp",
+  "terraform-ls",
+  "tflint",
+  "dockerfile-language-server",
+  "docker-compose-language-service",
+  -- "deno",
+  "typescript-language-server",
+  "eslint-lsp",
+  "cmake-language-server",
+  "bash-language-server",
+  "awk-language-server",
+  "css-lsp",
+  "html-lsp",
+  "json-lsp",
+  "sqlls",
+  "yaml-language-server",
+  "actionlint",
+  -- DAP
+  "netcoredbg",
+  "js-debug-adapter",
+  --
+  "prettier"
+}
+ -- Debian hosts are classed as servers, everything else is considered a client
+if (not(string.find(vim.loop.os_uname().version, "Debian")))
+then
+   -- Merge IDE plugins into global plugin list
+  for i,plugin in pairs(mason_ide_plugins)
+  do
+    table.insert(mason_plugins, plugin)
+  end
+end
+
 local plugins = {
   {
     "williamboman/mason.nvim",
@@ -5,34 +48,10 @@ local plugins = {
       ui = {
         border = "single",
       },
-      ensure_installed = {
-        -- LSP
-        "csharp-language-server",
-        "omnisharp",
-        "terraform-ls",
-        "tflint",
-        "dockerfile-language-server",
-        "docker-compose-language-service",
-        -- "deno",
-        "typescript-language-server",
-        "eslint-lsp",
-        "cmake-language-server",
-        "bash-language-server",
-        "awk-language-server",
-        "css-lsp",
-        "html-lsp",
-        "json-lsp",
-        "sqlls",
-        "yaml-language-server",
-        "actionlint",
-        "lua-language-server",
-        -- DAP
-        "netcoredbg",
-        "js-debug-adapter",
-        --
-        "prettier",
-        "ThePrimeagen/git-worktree.nvim"
-      }
+      ensure_installed = mason_plugins
+      -- {
+        -- "jq"
+      -- } --mason_plugins
     }
   },
   {
