@@ -13,7 +13,7 @@ git clone --depth 1 https://github.com/NvChad/NvChad.git ~/.config/nvim
 # Remove default custom config
 rm -r ~/.config/nvim/lua/custom
 # Link managed custom config
-ln -s ~/nvim-lua-custom ~/.config/nvim/lua/config
+ln -s ~/nvim-lua-custom ~/.config/nvim/lua/custom
 
 # Find the host's domain
 if [[ $(uname -a | grep -i Linux) ]];
