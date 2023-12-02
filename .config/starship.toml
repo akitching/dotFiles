@@ -11,26 +11,7 @@ format = """\
         [](bg:#464347 fg:#8FA700)\
         ${custom.directory_contents}\
         ${custom.directory_size}\
-        [](fg:#464347)\
-        $fill\
 
-        (↓ System state ↓)\
-        [](fg:#464347)\
-        $cmd_duration\
-        $jobs\
-        $shlvl\
-        $battery\
-        [](bg:#464347 fg:#8FA700)\
-        (↑ System state ↑)\
-
-        $line_break\
-
-        (↓ Environment line ↓)\
-        [](bg:#464347 fg:#8FA700)\
-        $username\
-        $hostname\
-        $localip\
-        $directory\
         $aws\
         $gcloud\
         $singularity\
@@ -65,16 +46,37 @@ format = """\
         $package\
         $cmake\
         $conda\
+        [](fg:#464347)\
+        $fill\
+
         (↑ Package modules ↑)\
+        [](fg:#464347)\
         $nix_shell\
         $memory_usage\
         $env_var\
-        $custom\
+        ${custom.screen}\
 
-        [](fg:#464347)\
-        $fill\
+        (↓ System state ↓)\
+        $jobs\
+        $shlvl\
+        $battery\
+        (↑ System state ↑)\
+
         $time\
+        $line_break\
+
+        (↓ Environment line ↓)\
+        [](bg:#464347 fg:#8FA700)\
+        $username\
+        $sudo\
+        $hostname\
+        $localip\
+        $directory\
+        [](fg:#464347)\
         (↑ Environment line ↑)\
+        $fill\
+        [](fg:#464347)\
+        [](bg:#464347 fg:#8FA700)\
         $line_break\
 
         (↓ Source control ↓)\
@@ -91,6 +93,7 @@ format = """\
         $fill\
         (↓ Empty line end ↓)\
         [](fg:#464347)\
+        $cmd_duration\
         [](bg:#464347 fg:#8FA700)\
         (↑ Empty line end ↑)\
 
@@ -323,8 +326,9 @@ format = "[[](bg:#ED8B00 fg:#464347)$symbol$version[](bg:#464347 fg:#ED8B0
 # disabled = true
 symbol = "  "
 style = "bold bg:#464347 fg:#FFA200"
-# threshold = 1
-format = "[$symbol$number]($style)"
+symbol_threshold = 1
+number_threshold = 1
+format = "[$symbol$number ]($style)"
 
 [julia]
 # disabled = true
@@ -339,11 +343,11 @@ style = "bg:#3371E3 fg:#EEEEEE"
 format = '[[](bg:#3371E3 fg:#464347)$symbol$context(\($namespace\))[](bg:#464347 fg:#3371E3)]($style)'
 
 [memory_usage]
-# disabled = false
+disabled = false
 symbol = "󰍛 "
 style = "bg:#BBBBBB fg:#111111"
 threshold = 75
-format = "([[](bg:#BBBBBB fg:#464347)$symbol$ram(:$swap)[](bg:#464347 fg:#BBBBBB)]($style))"
+format = "([[](fg:#BBBBBB bg:#464347)$symbol$ram(:$swap)[](fg:#464347 bg:#BBBBBB)]($style))"
 
 # Mercurial
 [hg_branch]
@@ -434,14 +438,23 @@ format = "[[](bg:#A72145 fg:#464347)$symbol$version[](bg:#464347 fg:#A7214
 # disabled = false
 symbol = ""
 style = "bold bg:#464347 fg:#FBDE2D"
-threshold = 2
-format = "[$symbol$shlvl]($style)"
+threshold = 1
+format = "[$symbol$shlvl ]($style)"
+disabled = false
 
 [singularity]
 # disabled = true
 symbol = "S"
 style = "bg:#1D315F fg:#EEEEEE"
 format = '[[](bg:#1D315F fg:#464347)$symbol\[$env\][](bg:#464347 fg:#1D315F)]($style)'
+
+[sudo]
+# style = "bg:#1D315F fg:#EEEEEE"
+style = "bg:#F05138 fg:#EEEEEE"
+symbol = '🧙'
+# format = "[as $symbol]($style)"
+format = '[[](bg:#F05138 fg:#464347)as $symbol[](bg:#464347 fg:#F05138)]($style)'
+disabled = false
 
 [swift]
 # disabled = true
@@ -451,10 +464,10 @@ style = "bg:#F05138 fg:#EEEEEE"
 format = "[[](bg:#F05138 fg:#464347)$symbol$version[](bg:#464347 fg:#F05138)]($style)"
 
 [status]
-# disabled = false
+disabled = false
 symbol = ""
 style = "bg:#464347 fg:#ff3322"
-format = "[$symbol$status]($style)"
+format = "[ $symbol$status]($style)"
 
 [terraform]
 disabled = false
@@ -472,7 +485,8 @@ use_12hr = false
 time_format = "%F %T"
 utc_time_offset = "local"
 #time_range = "20:00:00-06:00:00"
-format = "[[](fg:#464347)[](fg:#FFA200 bg:#464347) $time[](fg:#464347 bg:#FFA200)]($style)[](bg:#464347 fg:#8FA700)"
+format = "[[](fg:#FFA200 bg:#464347) $time[](fg:#464347 bg:#FFA200)]($style)[](bg:#464347 fg:#8FA700)"
+# format = "[[](fg:#464347)[](fg:#FFA200 bg:#464347) $time[](fg:#464347 bg:#FFA200)]($style)[](bg:#464347 fg:#8FA700)"
 #format = "[[](bg:#FFA200 fg:#464347) $time[](bg:#464347 fg:#FFA200)]($style)"
 
 [username]
