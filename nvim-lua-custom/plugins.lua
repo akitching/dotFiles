@@ -189,6 +189,10 @@ local plugins = {
     end
   },
   {
+     "HiPhish/jinja.vim",
+      lazy = false
+   },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
