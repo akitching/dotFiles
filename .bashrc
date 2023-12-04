@@ -13,7 +13,7 @@ export GPG_TTY=$(tty)
 
 export FIGNORE=.meta
 
-export PATH=${PATH}:~/.local/bin
+export PATH=${PATH}:~/.local/bin:~/.local/share/nvim/mason/bin/
 
 source ~/.bash_git
 
@@ -207,3 +207,7 @@ alias ll='ls -lah'
 alias config='/usr/bin/git --git-dir=/home/ak/.cfg/ --work-tree=/home/ak'
 
 eval "$(starship init bash)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
