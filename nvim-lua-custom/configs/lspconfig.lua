@@ -1,7 +1,10 @@
--- require("lspconfig.tsserver")
-require("custom.configs.lspconfig.tsserver")
-require("custom.configs.lspconfig.csharp_ls")
-require("custom.configs.lspconfig.terraformls")
+if (not (string.find(vim.loop.os_uname().version, "Debian")))
+then
+  -- require("lspconfig.tsserver")
+  require("custom.configs.lspconfig.tsserver")
+  require("custom.configs.lspconfig.csharp_ls")
+  require("custom.configs.lspconfig.terraformls")
+end
 
 local pid = vim.fn.getpid()
 -- local util = require 'util'

@@ -11,26 +11,7 @@ format = """\
         [](bg:#464347 fg:#8FA700)\
         ${custom.directory_contents}\
         ${custom.directory_size}\
-        [](fg:#464347)\
-        $fill\
 
-        (↓ System state ↓)\
-        [](fg:#464347)\
-        $cmd_duration\
-        $jobs\
-        $shlvl\
-        $battery\
-        [](bg:#464347 fg:#8FA700)\
-        (↑ System state ↑)\
-
-        $line_break\
-
-        (↓ Environment line ↓)\
-        [](bg:#464347 fg:#8FA700)\
-        $username\
-        $hostname\
-        $localip\
-        $directory\
         $aws\
         $gcloud\
         $singularity\
@@ -65,16 +46,37 @@ format = """\
         $package\
         $cmake\
         $conda\
+        [](fg:#464347)\
+        $fill\
+
         (↑ Package modules ↑)\
+        [](fg:#464347)\
         $nix_shell\
         $memory_usage\
         $env_var\
-        $custom\
+        ${custom.screen}\
 
-        [](fg:#464347)\
-        $fill\
+        (↓ System state ↓)\
+        $jobs\
+        $shlvl\
+        $battery\
+        (↑ System state ↑)\
+
         $time\
+        $line_break\
+
+        (↓ Environment line ↓)\
+        [](bg:#464347 fg:#8FA700)\
+        $username\
+        $sudo\
+        $hostname\
+        $localip\
+        $directory\
+        [](fg:#464347)\
         (↑ Environment line ↑)\
+        $fill\
+        [](fg:#464347)\
+        [](bg:#464347 fg:#8FA700)\
         $line_break\
 
         (↓ Source control ↓)\
@@ -91,6 +93,7 @@ format = """\
         $fill\
         (↓ Empty line end ↓)\
         [](fg:#464347)\
+        $cmd_duration\
         [](bg:#464347 fg:#8FA700)\
         (↑ Empty line end ↑)\
 
@@ -127,11 +130,11 @@ format = '[[](bg:#EC912D fg:#464347)$symbol$profile(\($region\))[](bg:#464
 
 [battery]
 # disabled = true
-full_symbol = ""
-charging_symbol = " "
-discharging_symbol = " "
-unknown_symbol = ""
-empty_symbol = ""
+full_symbol = "󰁹"
+charging_symbol = "󰂄 "
+discharging_symbol = "󱊢 "
+unknown_symbol = "󱉝 "
+empty_symbol = "󰂎"
 format = "[[](fg:#FF5511 bg:#464347)$symbol$percentage[](fg:#464347 bg:#FF5511)]($style)"
 [[battery.display]]
 threshold = 10
@@ -143,7 +146,7 @@ style = "bg:#FF5511 fg:#111111"
 [cmake]
 # disabled = true
 # symbol = "卑" # alternate
-symbol = "喝"
+symbol = "󰦖"
 style = "bg:#064F8D fg:#EEEEEE"
 format = "[[](bg:#064F8D fg:#464347)$symbol$version[](bg:#464347 fg:#064F8D)]($style)"
 
@@ -154,7 +157,7 @@ min_time = 0# 2_000
 show_milliseconds = true
 show_notifications = false
 min_time_to_notify = 45_000
-format = "[ 祥$duration ]($style)"
+format = "[ 󰦖 $duration ]($style)"
 
 [conda]
 # disabled = true
@@ -179,7 +182,7 @@ format = "[[](bg:#32BBF9 fg:#464347)$symbol$version[](bg:#464347 fg:#32BBF
 
 [directory]
 style = "italic bg:#6F6A70 fg:#EEEEEE"
-read_only = ""
+read_only = ""
 read_only_style = "bg:#ff3322 fg:#EEEEEE"
 truncation_length = 4
 truncate_to_repo = true
@@ -188,12 +191,12 @@ truncate_to_repo = true
 format = "([[](bg:#ff3322 fg:#464347)$read_only[](bg:#464347 fg:#ff3322)]($read_only_style))[[](bg:#6F6A70 fg:#464347)$path[](bg:#464347 fg:#6F6A70)]($style)"
 
 [directory.substitutions]
-"~/Documents" = ""
-"~/Music" = ""
-"~/Movies" = ""
-"~/Pictures" = ""
-"~/Sources" = ""
-"~/source/repos" = ""
+"~/Documents" = "󰈙"
+"~/Music" = " "
+"~/Movies" = "󱜏 "
+"~/Pictures" = " "
+"~/Sources" = " "
+"~/source/repos" = " "
 "~" = " "
 "/" = "  "
 
@@ -246,7 +249,7 @@ format = '[[](bg:#1A73E8 fg:#464347)$symbol$account(\($region\))[](bg:#464
 
 [git_branch]
 # disabled = true
-symbol = " "
+symbol = " "
 # symbol = " " # alternate
 style = "bg:#96ab5f fg:#111111"
 # truncation_length = 4
@@ -255,6 +258,7 @@ format = "[[](bg:#96ab5f fg:#464347)$symbol$branch[](bg:#464347 fg:#96ab5f
 
 [git_commit]
 # disabled = true
+tag_symbol = " "
 style = "bg:#E58F73 fg:#111111"
 commit_hash_length = 4
 # only_detached = true
@@ -276,13 +280,13 @@ format = '\([[](bg:#E0B25D fg:#464347)$state($progress_current/$progress_tota
 # disabled = true
 style = "bg:#E0B25D fg:#000000"
 stashed = "  ${count}"
-ahead = " ﲗ ${count}"
-behind = " ﲔ ${count}"
-diverged = " 李 ${ahead_count} ${behind_count}"
-conflicted = " ${count}"
+ahead = "  ${count}"
+behind = "  ${count}"
+diverged = "   ${ahead_count} ${behind_count}"
+conflicted = "  ${count}"
 deleted = " ${count}"
-renamed = " 﫦${count}"
-modified = " 凜${count}"
+renamed = "  ${count}"
+modified = " 󰂮 ${count}"
 staged = "  ${count}"
 untracked = "  ${count}"
 format = "([[](bg:#E0B25D fg:#464347)$stashed$staged$modified$renamed$untracked$deleted$conflicted$ahead_behind[](bg:#464347 fg:#E0B25D)]($style))"
@@ -295,7 +299,7 @@ format = "[[](bg:#7FD5EA fg:#464347)$symbol$version[](bg:#464347 fg:#7FD5E
 
 [helm]
 # disabled = true
-symbol = "ﴱ "
+symbol = "󰷀 "
 style = "bg:#0F1689 fg:#EEEEEE"
 format = "[[](bg:#0F1689 fg:#464347)$symbol$version[](bg:#464347 fg:#0F1689)]($style)"
 
@@ -322,8 +326,9 @@ format = "[[](bg:#ED8B00 fg:#464347)$symbol$version[](bg:#464347 fg:#ED8B0
 # disabled = true
 symbol = "  "
 style = "bold bg:#464347 fg:#FFA200"
-# threshold = 1
-format = "[$symbol$number]($style)"
+symbol_threshold = 1
+number_threshold = 1
+format = "[$symbol$number ]($style)"
 
 [julia]
 # disabled = true
@@ -338,11 +343,11 @@ style = "bg:#3371E3 fg:#EEEEEE"
 format = '[[](bg:#3371E3 fg:#464347)$symbol$context(\($namespace\))[](bg:#464347 fg:#3371E3)]($style)'
 
 [memory_usage]
-# disabled = false
-symbol = " "
+disabled = false
+symbol = "󰍛 "
 style = "bg:#BBBBBB fg:#111111"
 threshold = 75
-format = "([[](bg:#BBBBBB fg:#464347)$symbol$ram(:$swap)[](bg:#464347 fg:#BBBBBB)]($style))"
+format = "([[](fg:#BBBBBB bg:#464347)$symbol$ram(:$swap)[](fg:#464347 bg:#BBBBBB)]($style))"
 
 # Mercurial
 [hg_branch]
@@ -369,7 +374,8 @@ format = '[[](bg:#27385D fg:#464347)$symbol$name$state[](bg:#464347 fg:#27
 
 [nodejs]
 # disabled = true
-symbol = " "
+# symbol = " "
+symbol = "󰎙 "
 style = "bg:#005F00 fg:#EEEEEE"
 format = "[[](bg:#005F00 fg:#464347)$symbol$version[](bg:#464347 fg:#005F00)]($style)"
 
@@ -432,8 +438,9 @@ format = "[[](bg:#A72145 fg:#464347)$symbol$version[](bg:#464347 fg:#A7214
 # disabled = false
 symbol = ""
 style = "bold bg:#464347 fg:#FBDE2D"
-threshold = 2
-format = "[$symbol$shlvl]($style)"
+threshold = 1
+format = "[$symbol$shlvl ]($style)"
+disabled = false
 
 [singularity]
 # disabled = true
@@ -441,21 +448,30 @@ symbol = "S"
 style = "bg:#1D315F fg:#EEEEEE"
 format = '[[](bg:#1D315F fg:#464347)$symbol\[$env\][](bg:#464347 fg:#1D315F)]($style)'
 
+[sudo]
+# style = "bg:#1D315F fg:#EEEEEE"
+style = "bg:#F05138 fg:#EEEEEE"
+symbol = '🧙'
+# format = "[as $symbol]($style)"
+format = '[[](bg:#F05138 fg:#464347)as $symbol[](bg:#464347 fg:#F05138)]($style)'
+disabled = false
+
 [swift]
 # disabled = true
-symbol = "ﯣ "
+# symbol = "ﯣ "
+symbol = " "
 style = "bg:#F05138 fg:#EEEEEE"
 format = "[[](bg:#F05138 fg:#464347)$symbol$version[](bg:#464347 fg:#F05138)]($style)"
 
 [status]
-# disabled = false
+disabled = false
 symbol = ""
 style = "bg:#464347 fg:#ff3322"
-format = "[$symbol$status]($style)"
+format = "[ $symbol$status]($style)"
 
 [terraform]
 disabled = false
-symbol = "行"
+symbol = "󱁢 "
 style = "bg:#5836CD fg:#EEEEEE"
 format = '[[](bg:#5836CD fg:#464347)$symbol\($workspace\)[](bg:#464347 fg:#5836CD)]($style)'
 ### uncomment the following, to see the version
@@ -469,7 +485,8 @@ use_12hr = false
 time_format = "%F %T"
 utc_time_offset = "local"
 #time_range = "20:00:00-06:00:00"
-format = "[[](fg:#464347)[](fg:#FFA200 bg:#464347) $time[](fg:#464347 bg:#FFA200)]($style)[](bg:#464347 fg:#8FA700)"
+format = "[[](fg:#FFA200 bg:#464347) $time[](fg:#464347 bg:#FFA200)]($style)[](bg:#464347 fg:#8FA700)"
+# format = "[[](fg:#464347)[](fg:#FFA200 bg:#464347) $time[](fg:#464347 bg:#FFA200)]($style)[](bg:#464347 fg:#8FA700)"
 #format = "[[](bg:#FFA200 fg:#464347) $time[](bg:#464347 fg:#FFA200)]($style)"
 
 [username]

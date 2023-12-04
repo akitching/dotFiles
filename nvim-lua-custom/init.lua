@@ -31,6 +31,8 @@ vim.cmd([[
   map <S-Right> <C-w>l
 
   inoremap <silent> <S-Insert> <C-R>+
+
+  autocmd! BufRead,BufNewFile *.j2 call jinja#AdjustFiletype()
 ]])
 
 --local autocmd = vim.api.nvim_create_autocmd

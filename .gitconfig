@@ -1,9 +1,9 @@
 [core]
-    editor = /usr/bin/vim
+    editor = /usr/bin/vi
 [user]
     name = Alex Kitching
-    email = akitching@users.noreply.github.com
-    signingkey = 507A2D42E4BFA925
+    email = alex.kitching@amalgamstudios.com
+    signingkey = 413E4D58
 [alias]
     co = checkout
     ci = commit
