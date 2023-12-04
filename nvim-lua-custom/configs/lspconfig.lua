@@ -5,6 +5,7 @@ require("custom.configs.lspconfig.terraformls")
 
 local pid = vim.fn.getpid()
 -- local util = require 'util'
+vim.lsp.set_log_level(("debug"))
 
 local config = require("plugins.configs.lspconfig")
 
@@ -14,6 +15,33 @@ local capabilities = config.capabilities
 local lspconfig = require("lspconfig")
 
 require("mason-lspconfig").setup()
+
+--require("mason-lspconfig").setup_handlers {
+--  -- The first entry (without a key) will be the default handler
+--  -- and will be called for each installed server that doesn't have
+--  -- a dedicated handler.
+--  function(server_name)  -- default handler (optional)
+--    require("lspconfig")[server_name].setup {}
+--  end,
+--  -- Next, you can provide a dedicated handler for specific servers.
+--  -- For example, a handler override for the `rust_analyzer`:
+--  -- ["rust_analyzer"] = function ()
+--  -- require("rust-tools").setup {}
+--  -- end
+----  ["yamlls"] = function()
+----    require('lspconfig').yamlls.setup {
+----      -- ... -- other configuration for setup {}
+----      settings = {
+----        yaml = {
+----          -- ... -- other settings. note this overrides the lspconfig defaults.
+----          schemas = {
+----            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+----          },
+----        },
+----      }
+----    }
+----  end
+--}
 
 -- lspconfig.csharp_ls.setup{}
 -- lspconfig.denols.setup{}
@@ -57,10 +85,10 @@ require("mason-lspconfig").setup()
 --}
 
 -- SQL
-lspconfig.sqlls.setup{}
+lspconfig.sqlls.setup {}
 
 local omnisharp_capabilities = require('cmp_nvim_lsp')
-	.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local omnisharp_on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -74,7 +102,8 @@ local omnisharp_on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl',
+    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -82,12 +111,17 @@ local omnisharp_on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-lspconfig.omnisharp.setup{
-  cmd = {
-    "c:/Users/akitchin/AppData/Local/nvim-data/mason/bin/omnisharp.cmd", "--languageserver", "--hostPID", tostring(pid)
-  },
+lspconfig.omnisharp.setup {
+  -- cmd = {
+    -- "c:/Users/akitchin/AppData/Local/nvim-data/mason/bin/omnisharp.cmd", "--languageserver", "--hostPID", tostring(pid)
+  -- },
   on_attach = omnisharp_on_attach,
   capabilities = omnisharp_capabilities
+}
+
+require('lspconfig').yamlls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 
 -- Global mappings.

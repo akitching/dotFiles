@@ -57,6 +57,7 @@ local plugins = {
         -- "json-lsp",
         -- "sqlls",
         -- "yaml-language-server",
+        "yamlls",
         -- "actionlint",
         -- "lua-language-server",
         -- DAP
@@ -170,6 +171,7 @@ local plugins = {
     end
   },
   {
+    -- Syntax highlighting
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {

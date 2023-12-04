@@ -23,7 +23,7 @@ vim.cmd([[
   "map <C-j> <C-w>j
   "map <C-k> <C-w>k
   "map <C-l> <C-w>l
-  nnoremap <leader>w <C-w>v<C-w>l
+  " nnoremap <leader>w <C-w>v<C-w>l
 
   map <S-Up> <C-w>k
   map <S-Down> <C-w>j
@@ -48,5 +48,10 @@ vim.cmd([[
 vim.filetype.add({
   extension = {
     tfvars = "terraform"
+  }
+})
+vim.filetype.add({
+  extension = {
+    hcl = "terraform"
   }
 })
