@@ -19,7 +19,7 @@ ln -s ~/nvim-lua-custom ~/.config/nvim/lua/custom
 if [[ $(uname -a | grep -i Linux) ]];
 then
   domain=$(hostname -d)
-elseif [[ $(uname -a | grep -i MINGW64_NT)]];
+elif [[ $(uname -a | grep -i MINGW64_NT)]];
 then
   domain=$(systeminfo | grep Domain | sed 's/Domain: *//')
 else
