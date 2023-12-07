@@ -11,7 +11,7 @@ fi
 # Install NeoVim config
 git clone --depth 1 https://github.com/NvChad/NvChad.git ~/.config/nvim
 # Remove default custom config
-rm -r ~/.config/nvim/lua/custom
+[[ -d ~/.config/nvim/lua/custom ]] rm -r ~/.config/nvim/lua/custom
 # Link managed custom config
 ln -s ~/nvim-lua-custom ~/.config/nvim/lua/custom
 
@@ -30,9 +30,9 @@ fi
 # Set git user info based on domain
 if [[ $domain == *"frasers.group" ]];
 then
-  git config --global user.email alex-kitching-fg@users.noreply.github.com
-  git.config --global user.signingkey 507A2D42E4BFA925
+  git config --global user.email 103182756+alex-kitching-fg@users.noreply.github.com
+  git config --global user.signingkey 507A2D42E4BFA925
 else
   git config --global user.email akitching@users.noreply.github.com
-  git.config --global user.signingkey 413E4D58
+  git config --global user.signingkey 413E4D58
 fi
