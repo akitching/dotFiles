@@ -9,15 +9,29 @@
     ci = commit
     br = branch
     st = status
+
+    # Log
     last = log -1 HEAD
     l = log
     lg = log --graph
+    lv = log --show-signature
+    lgv = log --oneline --graph --decorate --all --show-signature
+    lvg = log --oneline --graph --decorate --all --show-signature
     l1 = log --oneline
 
+    # Diff
     d = diff
     dc = diff --cached
     wd = diff --word-diff
     wdc = diff --word-diff --cached
+
+    # Worktree
+    wt = worktree
+    wtl = worktree list
+    wta = "!f() { git worktree add $1 $1; git branch --set-upstream-to=origin/$1 $1; }; f"
+    wtc = "!f() { git worktree add -b $1 $1 $2; git branch --set-upstream-to=origin/$1 $1; }; f"
+    wtr = worktree remove
+    wtp = worktree prune
 [color]
     ui = true
 [push]
