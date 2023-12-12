@@ -90,6 +90,7 @@ format = """\
         ${custom.git_last_commit_message}\
         [](fg:#464347)\
         (↑ Source control ↑)\
+
         $fill\
         (↓ Empty line end ↓)\
         [](fg:#464347)\
@@ -157,7 +158,7 @@ min_time = 0# 2_000
 show_milliseconds = true
 show_notifications = false
 min_time_to_notify = 45_000
-format = "[ 󰦖 $duration ]($style)"
+format = "[  $duration ]($style)"
 
 [conda]
 # disabled = true
