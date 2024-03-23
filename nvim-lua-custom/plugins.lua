@@ -43,6 +43,10 @@ end
 
 local plugins = {
   {
+    "wakatime/vim-wakatime",
+    lazy = false
+  },
+  {
     "williamboman/mason.nvim",
     opts = {
       ui = {
