@@ -6,6 +6,7 @@
     signingkey = 413E4D58
 [alias]
     co = checkout
+    cl = "!sh $HOME/git-clone-bare-for-worktrees.sh"
     ci = commit
     br = branch
     st = status
@@ -28,10 +29,11 @@
     # Worktree
     wt = worktree
     wtl = worktree list
-    wta = "!f() { git worktree add $1 $1; git branch --set-upstream-to=origin/$1 $1; }; f"
-    wtc = "!f() { git worktree add -b $1 $1 $2; git branch --set-upstream-to=origin/$1 $1; }; f"
+    wta = "!f() { git worktree add $1 $1; git branch --set-upstream-to=origin/$1 $1; echo \"$(basename $PWD)\" > \"$1/.wakatime-project\"; echo \"$1\" >> \"$1/.wakatime-project\"; }; f"
+    wtc = "!f() { git worktree add -b $1 $1 $2; git push --set-upstream origin $1; echo \"$(basename $PWD)\" > \"$1/.wakatime-project\"; echo \"$1\" >> \"$1/.wakatime-project\"; }; f"
     wtr = worktree remove
     wtp = worktree prune
+    setup-wakatime = "!sh $HOME/git-setup-wakatime-in-worktree.sh"
 [color]
     ui = true
 [push]
