@@ -1,5 +1,6 @@
 [core]
     editor = /usr/bin/vi
+    excludesfile = ~/.gitignore-global
 [user]
     name = Alex Kitching
     email = alex.kitching@amalgamstudios.com
