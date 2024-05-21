@@ -13,6 +13,7 @@ format = """\
         ${custom.directory_size}\
 
         $aws\
+        $azure\
         $gcloud\
         $singularity\
         $kubernetes\
@@ -123,6 +124,12 @@ format = "$symbol "
 disabled = false
 
 # Module configurations
+[azure]
+disabled = false
+format = '[[](bg:#4A35CC fg:#464347)$symbol$username(\($subscription\))[](bg:#464347 fg:#4A35CC)]($style)'
+symbol = " "
+style = "bg:#4A35CC fg:#EEEEEE"
+
 [aws]
 # disabled = true
 symbol = " "
