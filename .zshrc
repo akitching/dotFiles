@@ -9,6 +9,9 @@ fi
 
 export EDITOR=/usr/bin/vi
 export GIT_EDITOR=/usr/bin/vi
+export PICO_SDK_PATH=~/Projects/rpi-pico/pico-sdk
+
+export ZSH_WAKATIME_PROJECT_DETECTION=true
 
 # Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
@@ -37,6 +40,7 @@ zinit snippet OMZP::debian
 zinit snippet OMZP::dircycle
 zinit snippet OMZP::ssh
 zinit snippet OMZP::vi-mode
+zinit snippet https://raw.githubusercontent.com/wbingli/zsh-wakatime/master/zsh-wakatime.plugin.zsh
 
 # Replay cached completions - recommended by docs
 zinit cdreplay -q
