@@ -216,3 +216,5 @@ eval "$(zoxide init bash --cmd cd)"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+eval "$(fzf --bash)"
