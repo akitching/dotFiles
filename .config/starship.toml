@@ -70,6 +70,8 @@ format = """\
         [](bg:#464347 fg:#8FA700)\
         $username\
         $sudo\
+        $shell\
+        $os\
         $hostname\
         $localip\
         $directory\
@@ -124,6 +126,19 @@ format = "$symbol "
 disabled = false
 
 # Module configurations
+[shell]
+disabled = false
+powershell_indicator = ""
+cmd_indicator = ""
+format = '[[](bg:#4A35CC fg:#464347)$indicator[](bg:#464347 fg:#4A35CC)]($style)'
+style = "bg:#4A35CC fg:#EEEEEE"
+
+[os]
+disabled = false
+format = '[[](bg:#4A35CC fg:#464347)$symbol[](bg:#464347 fg:#4A35CC)]($style)'
+style = "bg:#4A35CC fg:#EEEEEE"
+symbols.Windows = ""
+
 [azure]
 disabled = false
 format = '[[](bg:#4A35CC fg:#464347)$symbol$username(\($subscription\))[](bg:#464347 fg:#4A35CC)]($style)'
