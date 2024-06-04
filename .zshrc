@@ -80,13 +80,18 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-alias ls='ls --color'
+alias ls='exa --icons'
+# alias ls='ls --color'
 alias ll='ls -lah'
+alias tree='exa --tree --icons'
 
 alias g='git'
+
 
 # Shell integrations
 ## Fuzzy Finder
 eval "$(fzf --zsh)"
 ## ZOxide
 eval "$(zoxide init zsh --cmd cd)"
+## Command correction
+eval "$(thefuck --alias)"
