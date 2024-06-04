@@ -8,6 +8,7 @@ local mason_ide_plugins = {
   "ansible-lint",
   -- LSP
   "csharp-language-server",
+  "clangd",
   -- "omnisharp",
   "terraform-ls",
   "tflint",
@@ -42,6 +43,14 @@ then
 end
 
 local plugins = {
+  {
+    "preservim/tagbar",
+    lazy = false
+  },
+  {
+    "github/copilot.vim",
+    lazy = false
+  },
   {
     "wakatime/vim-wakatime",
     lazy = false
