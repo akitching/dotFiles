@@ -7,7 +7,7 @@ if [ ! -d "$ZINIT_HOME" ]; then
   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-export EDITOR=/usr/bin/vi
+export EDITOR="env vi"
 export GIT_EDITOR=/usr/bin/vi
 export PICO_SDK_PATH=~/Projects/rpi-pico/pico-sdk
 
